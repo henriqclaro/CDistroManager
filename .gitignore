@@ -1,1 +1,6 @@
-distro_mvc
+# Binários gerados
+distro_manager
+*.o
+
+# Variáveis ambiente
+.env
