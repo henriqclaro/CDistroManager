@@ -2,14 +2,14 @@
 #define DISTRO_DTO_H
 
 typedef struct DistroDTO {
-  int id;
+  const char *id;
   const char *name;
   const char *base;
   const char *package_manager;
   const char *environment;
 
-  int (*get_id)(struct DistroDTO *self);
-  void (*set_id)(struct DistroDTO *self, int id);
+  const char *(*get_id)(struct DistroDTO *self);
+  void (*set_id)(struct DistroDTO *self, char *id);
   const char *(*get_name)(struct DistroDTO *self);
   void (*set_name)(struct DistroDTO *self, char *name);
   const char *(*get_base)(struct DistroDTO *self);
@@ -20,9 +20,9 @@ typedef struct DistroDTO {
   void (*set_environment)(struct DistroDTO *self, char *environment);
 } DistroDTO;
 
-int get_id_impl(DistroDTO *self);
+const char *get_id_impl(DistroDTO *self);
 
-void set_id_impl(DistroDTO *self, int id);
+void set_id_impl(DistroDTO *self, char *id);
 
 const char *get_name_impl(DistroDTO *self);
 
@@ -40,6 +40,8 @@ const char *get_environment_impl(DistroDTO *self);
 
 void set_environment_impl(DistroDTO *self, char *environment);
 
-DistroDTO *Distro_create();
+DistroDTO *create_distro();
+
+void free_distro(DistroDTO *self);
 
 #endif

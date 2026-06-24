@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Função para fingir que o programa tem alguma compatibilidade com Windows
 void set_env_var(const char *name, const char *value) {
 #ifdef _WIN32
   _putenv_s(name, value);

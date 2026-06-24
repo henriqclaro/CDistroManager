@@ -18,7 +18,7 @@ PGconn *connect_db() {
   PGconn *conn = PQconnectdb(conninfo);
 
   if (PQstatus(conn) != CONNECTION_OK) {
-    fprintf(stderr, "Database connection failed: %s", PQerrorMessage(conn));
+    fprintf(stderr, "Database connection failed:\n %s\n", PQerrorMessage(conn));
     PQfinish(conn);
     return NULL;
   }
@@ -29,6 +29,6 @@ PGconn *connect_db() {
 void disconnect_db(PGconn *conn) {
   if (conn != NULL) {
     PQfinish(conn);
-    printf("Connection terminated.");
+    printf("Conexão encerrada.\n");
   }
 }

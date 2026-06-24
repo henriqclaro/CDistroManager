@@ -1,7 +1,7 @@
 #include "../include/models/distro_dto.h"
 #include <stdlib.h>
 
-DistroDTO *Distro_create() {
+DistroDTO *create_distro() {
   DistroDTO *distro = (DistroDTO *)malloc(sizeof(DistroDTO));
 
   distro->get_id = get_id_impl;
@@ -18,9 +18,11 @@ DistroDTO *Distro_create() {
   return distro;
 }
 
-int get_id_impl(DistroDTO *self) { return self->id; }
+void free_distro(DistroDTO *self) { free(self); }
 
-void set_id_impl(DistroDTO *self, int id) { self->id = id; }
+const char *get_id_impl(DistroDTO *self) { return self->id; }
+
+void set_id_impl(DistroDTO *self, char *id) { self->id = id; }
 
 const char *get_name_impl(DistroDTO *self) { return self->name; }
 
