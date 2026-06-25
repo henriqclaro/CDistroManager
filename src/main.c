@@ -21,8 +21,8 @@ int main() {
   do {
     printf("\nSelecione uma opção:\n"
            "1) Registrar Distro\n2) Listar Distros\n"
-           "3) Atualizar Distro\n4) Excluir Distro\n"
-           "0) Encerrar programa\n> ");
+           "3) Selecionar distro\n4) Atualizar Distro\n"
+           "5) Excluir Distro\n0) Encerrar programa\n> ");
 
     scanf(" %c", &opt);
 
@@ -44,6 +44,17 @@ int main() {
       break;
 
     case '3': {
+      char name[50];
+
+      printf("Insira o nome da distro a selecionar: ");
+      scanf("%s", name);
+
+      select_distro_by_name(conn, name, 1);
+
+      break;
+    }
+
+    case '4': {
       DistroDTO *distro = create_distro();
       char distro_id[40];
 
@@ -60,7 +71,7 @@ int main() {
       break;
     }
 
-    case '4': {
+    case '5': {
       char distro_id[40];
 
       printf("Insira o ID da distro a excluir: ");
