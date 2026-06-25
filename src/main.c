@@ -15,13 +15,14 @@ int main() {
 
   char opt;
 
-  printf("\e[1J\e[H");
+  printf("\e[1J\e[H"); // Clear
   printf("----- Gerenciador de Distros de Linux -----");
 
   do {
-    printf("\nSelecione uma opção:\n1) Registrar Distro\n2) Listar "
-           "Distros\n3) Atualizar Distro\n4) Excluir Distro\n0) Encerrar "
-           "programa\n> ");
+    printf("\nSelecione uma opção:\n"
+           "1) Registrar Distro\n2) Listar Distros\n"
+           "3) Atualizar Distro\n4) Excluir Distro\n"
+           "0) Encerrar programa\n> ");
 
     scanf(" %c", &opt);
 
@@ -29,26 +30,7 @@ int main() {
     case '1': {
       DistroDTO *distro = create_distro();
 
-      char name[50];
-      char base[50];
-      char pkg_mng[50];
-      char env[50];
-
-      printf("Insira o nome: ");
-      scanf("%s", name);
-      distro->set_name(distro, name);
-
-      printf("Insira a base: ");
-      scanf("%s", base);
-      distro->set_base(distro, base);
-
-      printf("Insira o gerenciador de pacotes: ");
-      scanf("%s", pkg_mng);
-      distro->set_package_manager(distro, pkg_mng);
-
-      printf("Insira o ambiente gráfico: ");
-      scanf("%s", env);
-      distro->set_environment(distro, env);
+      read_distro(distro);
 
       register_distro(conn, distro);
 
@@ -56,37 +38,20 @@ int main() {
 
       break;
     }
+
     case '2':
       select_all_distros(conn);
       break;
+
     case '3': {
       DistroDTO *distro = create_distro();
-
-      char name[50];
-      char base[50];
-      char pkg_mng[50];
-      char env[50];
       char distro_id[40];
 
       printf("Insira o ID da distro a atualizar: ");
       scanf("%s", distro_id);
       distro->set_id(distro, distro_id);
 
-      printf("Insira o novo nome: ");
-      scanf("%s", name);
-      distro->set_name(distro, name);
-
-      printf("Insira a nova base: ");
-      scanf("%s", base);
-      distro->set_base(distro, base);
-
-      printf("Insira o novo gerenciador de pacotes: ");
-      scanf("%s", pkg_mng);
-      distro->set_package_manager(distro, pkg_mng);
-
-      printf("Insira o novo ambiente gráfico: ");
-      scanf("%s", env);
-      distro->set_environment(distro, env);
+      read_distro(distro);
 
       update_distro(conn, distro);
 
@@ -94,8 +59,9 @@ int main() {
 
       break;
     }
+
     case '4': {
-      char distro_id[8];
+      char distro_id[40];
 
       printf("Insira o ID da distro a excluir: ");
       scanf("%s", distro_id);
@@ -104,9 +70,11 @@ int main() {
 
       break;
     }
+
     case '0':
       printf("Encerrando programa...\n");
       break;
+
     default:
       printf("Selecione uma opção válida.\n");
       break;
